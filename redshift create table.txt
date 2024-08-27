@@ -1,0 +1,34 @@
+-- CREATE SCHEMA airlines;
+DROP TABLE airlines.airports_dim ;
+CREATE TABLE airlines.airports_dim 
+
+(
+airport_id INTEGER ENCODE LZO,
+city VARCHAR(70) ENCODE LZO,
+state VARCHAR(70) ENCODE LZO,
+name VARCHAR(100) ENCODE LZO
+);
+
+COPY airlines.airports_dim
+FROM ''
+IAM_ROLE ''
+DELIMITER ','
+IGNOREHEADER 1
+REGION 'us-east-1';
+
+SELECT * FROM airlines.airports_dim LIMIT 5;
+
+DROP TABLE airlines.daily_flights_fact;
+CREATE TABLE airlines.daily_flights_fact (
+    carrier VARCHAR(70) ENCODE LZO,
+    dep_airport VARCHAR(100) ENCODE LZO,
+    arr_airport VARCHAR(100) ENCODE LZO,
+    dep_city VARCHAR(70) ENCODE LZO,
+    arr_city VARCHAR(70) ENCODE LZO,
+    dep_state VARCHAR(70) ENCODE LZO,
+    arr_state VARCHAR(70) ENCODE LZO,
+    dep_delay SMALLINT ENCODE LZO,
+    arr_delay SMALLINT ENCODE LZO
+);
+
+SELECT * FROM airlines.daily_flights_fact;
